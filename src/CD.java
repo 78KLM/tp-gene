@@ -1,4 +1,4 @@
-public class CD extends Media {
+public class CD extends Media implements Empruntable {
     private String artiste;
     private int duree;
 
@@ -12,5 +12,10 @@ public class CD extends Media {
     @Override
     public String getDescription() {
         return "CD de " + artiste + ", durée: " + duree + "minutes.";
+    }
+
+    @Override
+    public void emprunter() {
+        System.out.println("Le CD \"" + getTitre() + "\" a été emprunté.");
     }
 }

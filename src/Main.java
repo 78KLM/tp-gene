@@ -49,8 +49,8 @@ public class Main {
     }
 
     public static <T> void copierCollection(Collection<T> source, Collection<T> destination) {
-        destination.clear(); // (optionnel) on vide la destination avant
-        destination.addAll(source); // on copie tout
+        destination.clear();
+        destination.addAll(source);
     }
 
     public static Set<Media> mediasEmpruntesSansDoublons(Map<Membre, List<Media>> emprunts) {
@@ -83,18 +83,38 @@ public class Main {
         List<Media> mediasM2 = new ArrayList<>(List.of(l2, c1));
 
         Set<Membre> ms = new HashSet<>();
-        Membre m1 = new Membre("klm", 1);
-        Membre m2 = new Membre("james", 2);
-        Membre m3 = new Membre("drys", 3);
+        Membre m1 = new Membre("Klm", 1);
+        Membre m2 = new Membre("James", 2);
+        Membre m3 = new Membre("Drys", 3);
+        Membre m4 = new Membre("Abdel", 4);
 
         ms.add(m1);
         ms.add(m2);
         ms.add(m3);
+        ms.add(m4);
 
 
         Map<Membre, List<Media>> emprunts = new HashMap<>();
         emprunts.put(m1, Medias1);
         emprunts.put(m2, mediasM2);
+
+        System.out.println("Afficherliste debut");
+        afficherListe(Medias1);
+        System.out.println("Afficherliste fin");
+
+        List<Media> mediasApres2010 = filtrer(Medias1, m -> m.getAnneePublication() > 2010);
+        System.out.println("Médias publiés après 2010 :");
+        afficherListe(mediasApres2010);
+
+        List<Membre> membresFiltres = filtrer(new ArrayList<>(ms), m -> m.getNom().startsWith("A"));
+        System.out.println("Membres avec un A :");
+        afficherListe(membresFiltres);
+
+        System.out.println("trier Livre test :");
+        trierLivre(Medias1);
+        System.out.println("trier Media par annee et puis titre test :");
+        trierMedia(Medias1);
+
 
         Set<Media> mediasSansDoublons = mediasEmpruntesSansDoublons(emprunts);
         System.out.println("Médias empruntés sans doublons :");
@@ -103,9 +123,18 @@ public class Main {
         List<Media> livres = filtrer(Medias1, m -> m instanceof Livre);
         System.out.println("Médias de type Livre :");
         afficherListe(livres);
-        System.out.println("trier Livre test :");
-        trierLivre(Medias1);
 
+        System.out.println("\n____________________polymorphisme ");
+        for (Media m : Medias1) {
+            m.afficherDetails();
+        }
+
+        System.out.println("\nl'interface Empruntable");
+        for (Media m : Medias1) {
+            if (m instanceof Empruntable) {
+                ((Empruntable) m).emprunter();
+            }
+        }
 
     }
 }

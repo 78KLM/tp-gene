@@ -1,4 +1,4 @@
-public class Livre extends Media {
+public class Livre extends Media implements Empruntable{
     private String auteur;
     private int nbPages;
 
@@ -28,5 +28,11 @@ public class Livre extends Media {
     @Override
     public String getDescription() {
         return "Livre de " + auteur + ", " + nbPages + " pages.";
+    }
+
+
+    @Override
+    public void emprunter() {
+        System.out.println("Le livre \"" + getTitre() + "\" a été emprunté.");
     }
 }

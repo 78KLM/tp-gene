@@ -38,4 +38,7 @@ public abstract class Media
     public void afficherDetails() {
         System.out.println(getDescription());
     }
+
+
+
 }
